@@ -1,0 +1,82 @@
+[
+  {
+    "title": "The Hobbit",
+    "author": "J.R.R. Tolkien",
+    "year": "1937",
+    "genre": "Fantasy",
+    "image": "/the-hobbit.jpg",
+    "bookUrl": "/books/the-hobbit.pdf"
+  },
+  {
+    "title": "Sherlock Holmes: The Complete Collection",
+    "author": "Arthur Conan Doyle",
+    "year": "1887",
+    "genre": "Mystery",
+    "image": "/sherlock.jpg",
+    "bookUrl": "/books/sherlock.pdf"
+  },
+  {
+    "title": "Pride and Prejudice",
+    "author": "Jane Austen",
+    "year": "1813",
+    "genre": "Romance",
+    "image": "/pride-prejudice.jpg",
+    "bookUrl": "/books/pride-prejudice.pdf"
+  },
+  {
+    "title": "Dracula",
+    "author": "Bram Stoker",
+    "year": "1897",
+    "genre": "Horror",
+    "image": "/dracula.jpg",
+    "bookUrl": "/books/dracula.pdf"
+  },
+  {
+    "title": "Dune",
+    "author": "Frank Herbert",
+    "year": "1965",
+    "genre": "Science Fiction",
+    "image": "/dune.jpg",
+    "bookUrl": "/books/dune.pdf"
+  },
+  {
+    "title": "The Diary of a Young Girl",
+    "author": "Anne Frank",
+    "year": "1947",
+    "genre": "Biography",
+    "image": "/anne-frank.jpg",
+    "bookUrl": "/books/anne-frank.pdf"
+  },
+  {
+    "title": "Atomic Habits",
+    "author": "James Clear",
+    "year": "2018",
+    "genre": "Self-Development",
+    "image": "/atomic-habits.jpg",
+    "bookUrl": "/books/atomic-habits.pdf"
+  },
+  {
+    "title": "Frankenstein",
+    "author": "Mary Shelley",
+    "year": "1818",
+    "genre": "Horror",
+    "image": "/frankenstein.jpg",
+    "bookUrl": "/books/frankenstein.pdf"
+  },
+  {
+    "title": "The Great Gatsby",
+    "author": "F. Scott Fitzgerald",
+    "year": "1925",
+    "genre": "Romance",
+    "image": "/gatsby.jpg",
+    "bookUrl": "/books/gatsby.pdf"
+  },
+  {
+    "title": "1984",
+    "author": "George Orwell",
+    "year": "1949",
+    "genre": "Science Fiction",
+    "image": "/1984.jpg",
+    "bookUrl": "/books/1984.pdf"
+  }
+]
