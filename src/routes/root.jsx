@@ -1,4 +1,5 @@
-// root.jsx
+// Updated src/routes/root.jsx with all our changes integrated
+
 import { useState, useRef, useEffect } from 'react';
 import Header from '../components/Header';
 import Hero from '../components/Hero';
@@ -27,7 +28,6 @@ const Root = () => {
   const [showSearchResults, setShowSearchResults] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
   const [selectedGenre, setSelectedGenre] = useState(null);
-  const [selectedAuthor, setSelectedAuthor] = useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [hoveredNavItem, setHoveredNavItem] = useState(null);
 
@@ -72,7 +72,7 @@ const Root = () => {
     setSelectedBook(book);
   };
 
-  // Handle search
+  // Handle search with auto-scroll to results
   const handleSearch = (e) => {
     e.preventDefault();
 
@@ -81,12 +81,22 @@ const Root = () => {
     const results = books.filter(
       (book) =>
         book.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        book.author.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        book.genre.toLowerCase().includes(searchQuery.toLowerCase())
+        book.author.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
     setSearchResults(results);
     setShowSearchResults(true);
+
+    // Add scroll after setting results
+    setTimeout(() => {
+      window.scrollTo({
+        top:
+          document.querySelector('section').getBoundingClientRect().top +
+          window.pageYOffset -
+          100,
+        behavior: 'smooth',
+      });
+    }, 100);
   };
 
   // Handle adding to favorites
@@ -158,8 +168,6 @@ const Root = () => {
         setHoveredNavItem={setHoveredNavItem}
         selectedGenre={selectedGenre}
         setSelectedGenre={setSelectedGenre}
-        selectedAuthor={selectedAuthor}
-        setSelectedAuthor={setSelectedAuthor}
       />
 
       <main className='pt-24'>
@@ -230,7 +238,7 @@ const Root = () => {
           popularAuthors={[
             {
               name: 'J.K. Rowling',
-              image: '/authors/rowling.jpg',
+              image: 'rowling.jpg',
               books: 7,
               genre: 'Fantasy',
               description:
@@ -238,7 +246,7 @@ const Root = () => {
             },
             {
               name: 'Stephen King',
-              image: '/authors/king.jpg',
+              image: 'stephen-king.jpg',
               books: 61,
               genre: 'Horror',
               description:
@@ -246,7 +254,7 @@ const Root = () => {
             },
             {
               name: 'Agatha Christie',
-              image: '/authors/christie.jpg',
+              image: 'agatha-christie.jpg',
               books: 66,
               genre: 'Mystery',
               description:
@@ -254,15 +262,13 @@ const Root = () => {
             },
             {
               name: 'George Orwell',
-              image: '/authors/orwell.jpg',
+              image: 'george-orwell.jpg',
               books: 9,
               genre: 'Dystopian',
               description:
                 'English novelist, essayist, journalist, and critic. His work is characterized by lucid prose, social criticism, opposition to totalitarianism, and support of democratic socialism.',
             },
           ]}
-          selectedAuthor={selectedAuthor}
-          setSelectedAuthor={setSelectedAuthor}
           getBooksByFilter={getBooksByFilter}
           handleBookClick={handleBookClick}
         />

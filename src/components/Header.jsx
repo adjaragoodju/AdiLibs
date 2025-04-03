@@ -32,7 +32,6 @@ const Header = ({
           <div className='flex items-center'>
             <Logo />
           </div>
-
           {/* Mobile menu button */}
           <button
             className='md:hidden'
@@ -71,7 +70,6 @@ const Header = ({
               </svg>
             )}
           </button>
-
           {/* Desktop Navigation */}
           <div className='hidden md:flex items-center space-x-8'>
             <button
@@ -91,79 +89,39 @@ const Header = ({
               </span>
             </button>
 
-            <div
-              className='relative group'
+            <button
+              className='font-medium hover:text-black transition-colors'
+              onClick={() => scrollToSection(genresRef)}
               onMouseEnter={() => setHoveredNavItem('genres')}
               onMouseLeave={() => setHoveredNavItem(null)}
             >
-              <button
-                className='font-medium hover:text-black transition-colors'
-                onClick={() => scrollToSection(genresRef)}
+              <span
+                className={`relative ${
+                  hoveredNavItem === 'genres'
+                    ? 'after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-black'
+                    : ''
+                }`}
               >
-                <span
-                  className={`relative ${
-                    hoveredNavItem === 'genres'
-                      ? 'after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-black'
-                      : ''
-                  }`}
-                >
-                  Genres
-                </span>
-              </button>
-              <div className='absolute top-full left-0 w-64 bg-white shadow-lg rounded-lg mt-1 p-4 z-50 hidden group-hover:block'>
-                <div className='grid grid-cols-2 gap-2'>
-                  {uniqueGenres.map((genreItem) => (
-                    <button
-                      key={genreItem}
-                      className='text-left hover:bg-gray-100 p-2 rounded'
-                      onClick={() => {
-                        setSelectedGenre(genreItem);
-                        scrollToSection(genresRef);
-                      }}
-                    >
-                      {genreItem}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
+                Genres
+              </span>
+            </button>
 
-            <div
-              className='relative group'
+            <button
+              className='font-medium hover:text-black transition-colors'
+              onClick={() => scrollToSection(authorsRef)}
               onMouseEnter={() => setHoveredNavItem('authors')}
               onMouseLeave={() => setHoveredNavItem(null)}
             >
-              <button
-                className='font-medium hover:text-black transition-colors'
-                onClick={() => scrollToSection(authorsRef)}
+              <span
+                className={`relative ${
+                  hoveredNavItem === 'authors'
+                    ? 'after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-black'
+                    : ''
+                }`}
               >
-                <span
-                  className={`relative ${
-                    hoveredNavItem === 'authors'
-                      ? 'after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-black'
-                      : ''
-                  }`}
-                >
-                  Authors
-                </span>
-              </button>
-              <div className='absolute top-full left-0 w-64 bg-white shadow-lg rounded-lg mt-1 p-4 z-50 hidden group-hover:block'>
-                <div className='grid grid-cols-2 gap-2'>
-                  {uniqueAuthors.map((authorItem) => (
-                    <button
-                      key={authorItem}
-                      className='text-left hover:bg-gray-100 p-2 rounded'
-                      onClick={() => {
-                        setSelectedAuthor(authorItem);
-                        scrollToSection(authorsRef);
-                      }}
-                    >
-                      {authorItem}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
+                Authors
+              </span>
+            </button>
 
             <button
               className='font-medium hover:text-black transition-colors'
@@ -221,7 +179,6 @@ const Header = ({
               )}
             </button>
           </div>
-
           {/* Search Bar */}
           <form
             onSubmit={handleSearch}
@@ -230,17 +187,17 @@ const Header = ({
             <input
               type='text'
               placeholder='Search books...'
-              className='px-4 py-2 border rounded-l-lg focus:outline-none focus:ring-2 focus:ring-black'
+              className='px-4 py-2 border rounded-l-lg focus:outline-none  w-64'
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
             <button
               type='submit'
-              className='bg-black hover:bg-gray-800 text-white px-4 py-2 rounded-r-lg transition-colors'
+              className='bg-black hover:bg-gray-800 text-white px-6 py-2 rounded-r-lg transition-colors flex items-center'
             >
               <svg
                 xmlns='http://www.w3.org/2000/svg'
-                className='h-5 w-5'
+                className='h-5 w-5 mr-1'
                 fill='none'
                 viewBox='0 0 24 24'
                 stroke='currentColor'
@@ -252,6 +209,7 @@ const Header = ({
                   d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'
                 />
               </svg>
+              Search
             </button>
           </form>
         </nav>
@@ -324,11 +282,11 @@ const Header = ({
               />
               <button
                 type='submit'
-                className='bg-black hover:bg-gray-800 text-white px-4 py-2 rounded-r-lg transition-colors'
+                className='bg-black hover:bg-gray-800 text-white px-6 py-2 rounded-r-lg transition-colors flex items-center'
               >
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
-                  className='h-5 w-5'
+                  className='h-5 w-5 mr-1'
                   fill='none'
                   viewBox='0 0 24 24'
                   stroke='currentColor'
@@ -340,6 +298,7 @@ const Header = ({
                     d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'
                   />
                 </svg>
+                Search
               </button>
             </form>
           </div>

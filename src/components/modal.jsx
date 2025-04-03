@@ -1,4 +1,5 @@
-// components/modal.jsx
+// src/components/modal.jsx - Using inline styles for guaranteed transparency
+
 import React, { useEffect } from 'react';
 
 const Modal = ({ children, onClose }) => {
@@ -22,16 +23,52 @@ const Modal = ({ children, onClose }) => {
   }, [onClose]);
 
   return (
-    <div className='fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center overflow-y-auto p-4'>
-      <div className='relative bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto'>
+    <div
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: 'rgba(0, 0, 0, 0.7)', // 70% opacity black
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '1rem',
+        zIndex: 50,
+        overflowY: 'auto',
+      }}
+      onClick={onClose}
+    >
+      <div
+        style={{
+          position: 'relative',
+          backgroundColor: 'white',
+          borderRadius: '0.5rem',
+          maxWidth: '64rem',
+          width: '100%',
+          maxHeight: '90vh',
+          overflowY: 'auto',
+        }}
+        onClick={(e) => e.stopPropagation()}
+      >
         {/* Close button */}
         <button
           onClick={onClose}
-          className='absolute top-4 right-4 text-gray-600 hover:text-gray-900'
+          style={{
+            position: 'absolute',
+            top: '1rem',
+            right: '1rem',
+            color: '#666',
+            background: 'none',
+            border: 'none',
+            cursor: 'pointer',
+          }}
         >
           <svg
             xmlns='http://www.w3.org/2000/svg'
-            className='h-6 w-6'
+            width='24'
+            height='24'
             fill='none'
             viewBox='0 0 24 24'
             stroke='currentColor'
@@ -46,7 +83,7 @@ const Modal = ({ children, onClose }) => {
         </button>
 
         {/* Modal content */}
-        <div className='p-6'>{children}</div>
+        <div style={{ padding: '1.5rem' }}>{children}</div>
       </div>
     </div>
   );
