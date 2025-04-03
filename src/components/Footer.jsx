@@ -114,22 +114,6 @@ const Footer = ({
                   FAQs
                 </a>
               </li>
-              <li>
-                <a
-                  href='#'
-                  className='text-gray-300 hover:text-white transition-colors'
-                >
-                  Blog
-                </a>
-              </li>
-              <li>
-                <a
-                  href='#'
-                  className='text-gray-300 hover:text-white transition-colors'
-                >
-                  Community
-                </a>
-              </li>
             </ul>
           </div>
 

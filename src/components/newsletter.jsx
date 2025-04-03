@@ -60,14 +60,14 @@ const Newsletter = () => {
           <input
             type='email'
             placeholder='Your email address'
-            className='flex-1 px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-white text-gray-800'
+            className='flex-1 px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-white text-white'
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
           <button
             type='submit'
-            className='bg-white hover:bg-gray-100 text-blue-600 font-medium px-6 py-3 rounded-lg transition-colors'
+            className='bg-white hover:bg-gray-100 text-black font-medium px-6 py-3 rounded-lg transition-colors'
           >
             Subscribe
           </button>
