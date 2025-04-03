@@ -1,6 +1,6 @@
-// components/Header.jsx
 import React from 'react';
-import Logo from './logo';
+import Logo from '../ui/Logo';
+import { useFavorites } from '../../context/FavoritesContext';
 
 const Header = ({
   uniqueGenres,
@@ -17,7 +17,6 @@ const Header = ({
   reviewsRef,
   aboutRef,
   setShowFavoritesModal,
-  favorites,
   hoveredNavItem,
   setHoveredNavItem,
   selectedGenre,
@@ -25,6 +24,8 @@ const Header = ({
   selectedAuthor,
   setSelectedAuthor,
 }) => {
+  const { favorites } = useFavorites();
+
   return (
     <header className='fixed top-0 left-0 right-0 bg-white shadow-md z-50'>
       <div className='container mx-auto px-4'>

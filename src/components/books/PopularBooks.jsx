@@ -1,8 +1,7 @@
-// components/PopularBooks.jsx
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation } from 'swiper/modules';
-import Book from './book';
+import Book from './Book';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/autoplay';

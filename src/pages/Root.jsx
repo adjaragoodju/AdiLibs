@@ -1,33 +1,44 @@
-// Updated src/routes/root.jsx with all our changes integrated
+import { useState, useRef } from 'react';
+import { useBooks } from '../hooks/useBooks';
+import { useScrollToSection } from '../hooks/useScrollToSection';
+import { FavoritesProvider } from '../context/FavoritesContext';
 
-import { useState, useRef, useEffect } from 'react';
-import Header from '../components/Header';
-import Hero from '../components/Hero';
-import SearchResults from '../components/SearchResults';
-import PopularBooks from '../components/PopularBooks';
-import AuthorQuote from '../components/AuthorQuote';
-import GenresSection from '../components/GenresSection';
-import ReviewsSection from '../components/ReviewsSection';
-import AuthorsSection from '../components/AuthorsSection';
-import AboutUsSection from '../components/AboutUsSection';
-import FaqsSection from '../components/FaqsSection';
-import NewsletterSection from '../components/NewsletterSection';
-import Footer from '../components/Footer';
-import BookModal from '../components/BookModal';
-import FavoritesModal from '../components/FavoritesModal';
+// Import layout components
+import Header from '../components/layout/Header';
+import Footer from '../components/layout/Footer';
 
-// Import sample data
-import books from '../data/books.json';
+// Import section components
+import Hero from '../components/sections/Hero';
+import SearchResults from '../components/sections/SearchResults';
+import AboutUsSection from '../components/sections/AboutUsSection';
+import FaqsSection from '../components/sections/FaqsSection';
+import NewsletterSection from '../components/sections/NewsletterSection';
+import ReviewsSection from '../components/sections/ReviewsSection';
+
+// Import book components
+import PopularBooks from '../components/books/PopularBooks';
+import GenresSection from '../components/books/GenresSection';
+import BookModal from '../components/books/BookModal';
+import FavoritesModal from '../components/books/FavoritesModal';
+
+// Import author components
+import AuthorQuote from '../components/authors/AuthorQuote';
+import AuthorsSection from '../components/authors/AuthorsSection';
 
 const Root = () => {
+  // Use custom hooks
+  const { books, uniqueGenres, uniqueAuthors, getBooksByFilter, searchBooks } =
+    useBooks();
+  const scrollToSection = useScrollToSection();
+
   // State management
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedBook, setSelectedBook] = useState(null);
   const [showFavoritesModal, setShowFavoritesModal] = useState(false);
-  const [favorites, setFavorites] = useState([]);
   const [showSearchResults, setShowSearchResults] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
   const [selectedGenre, setSelectedGenre] = useState(null);
+  const [selectedAuthor, setSelectedAuthor] = useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [hoveredNavItem, setHoveredNavItem] = useState(null);
 
@@ -40,50 +51,17 @@ const Root = () => {
   const faqsRef = useRef(null);
   const newsletterRef = useRef(null);
 
-  // Get unique genres and authors for dropdown options
-  const uniqueGenres = [...new Set(books.map((book) => book.genre))];
-  const uniqueAuthors = [...new Set(books.map((book) => book.author))];
-
-  // Function to get books by genre or author
-  const getBooksByFilter = (filterType, filterValue) => {
-    return books.filter((book) => book[filterType] === filterValue);
-  };
-
-  // Enhanced scroll to section with offset for fixed header
-  const scrollToSection = (ref) => {
-    if (!ref || !ref.current) return;
-
-    // Add offset for fixed header
-    const headerHeight = 80; // Approximate height of the fixed header
-    const elementPosition = ref.current.getBoundingClientRect().top;
-    const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
-
-    window.scrollTo({
-      top: offsetPosition,
-      behavior: 'smooth',
-    });
-
-    // Close mobile menu when navigating
-    setMobileMenuOpen(false);
-  };
-
-  // Handle book click to show modal
+  // Handler for book click
   const handleBookClick = (book) => {
     setSelectedBook(book);
   };
 
-  // Handle search with auto-scroll to results
+  // Handler for search
   const handleSearch = (e) => {
     e.preventDefault();
-
     if (!searchQuery.trim()) return;
 
-    const results = books.filter(
-      (book) =>
-        book.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        book.author.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-
+    const results = searchBooks(searchQuery);
     setSearchResults(results);
     setShowSearchResults(true);
 
@@ -99,55 +77,13 @@ const Root = () => {
     }, 100);
   };
 
-  // Handle adding to favorites
-  const addToFavorites = (book) => {
-    if (!favorites.some((fav) => fav.title === book.title)) {
-      const newFavorites = [...favorites, book];
-      setFavorites(newFavorites);
-
-      // Save to localStorage with error handling
-      try {
-        localStorage.setItem('adilibs-favorites', JSON.stringify(newFavorites));
-      } catch (error) {
-        console.error('Failed to save favorites to localStorage:', error);
-      }
-    }
-  };
-
-  // Handle removing from favorites
-  const removeFromFavorites = (bookToRemove) => {
-    const newFavorites = favorites.filter(
-      (book) => book.title !== bookToRemove.title
-    );
-    setFavorites(newFavorites);
-
-    // Update localStorage with error handling
-    try {
-      localStorage.setItem('adilibs-favorites', JSON.stringify(newFavorites));
-    } catch (error) {
-      console.error('Failed to update favorites in localStorage:', error);
-    }
-  };
-
-  // Function to toggle mobile menu
+  // Toggle mobile menu
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
 
-  // Load favorites from localStorage on mount
-  useEffect(() => {
-    try {
-      const savedFavorites = localStorage.getItem('adilibs-favorites');
-      if (savedFavorites) {
-        setFavorites(JSON.parse(savedFavorites));
-      }
-    } catch (error) {
-      console.error('Error loading favorites from localStorage:', error);
-    }
-  }, []);
-
   return (
-    <>
+    <FavoritesProvider>
       <Header
         uniqueGenres={uniqueGenres}
         uniqueAuthors={uniqueAuthors}
@@ -156,18 +92,21 @@ const Root = () => {
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
         handleSearch={handleSearch}
-        scrollToSection={scrollToSection}
+        scrollToSection={(ref) =>
+          scrollToSection(ref, () => setMobileMenuOpen(false))
+        }
         homeRef={homeRef}
         genresRef={genresRef}
         authorsRef={authorsRef}
         reviewsRef={reviewsRef}
         aboutRef={aboutRef}
         setShowFavoritesModal={setShowFavoritesModal}
-        favorites={favorites}
         hoveredNavItem={hoveredNavItem}
         setHoveredNavItem={setHoveredNavItem}
         selectedGenre={selectedGenre}
         setSelectedGenre={setSelectedGenre}
+        selectedAuthor={selectedAuthor}
+        setSelectedAuthor={setSelectedAuthor}
       />
 
       <main className='pt-24'>
@@ -293,21 +232,18 @@ const Root = () => {
         <BookModal
           selectedBook={selectedBook}
           setSelectedBook={setSelectedBook}
-          addToFavorites={addToFavorites}
         />
       )}
 
       {showFavoritesModal && (
         <FavoritesModal
-          favorites={favorites}
           setShowFavoritesModal={setShowFavoritesModal}
           setSelectedBook={setSelectedBook}
-          removeFromFavorites={removeFromFavorites}
           scrollToSection={scrollToSection}
           genresRef={genresRef}
         />
       )}
-    </>
+    </FavoritesProvider>
   );
 };
 

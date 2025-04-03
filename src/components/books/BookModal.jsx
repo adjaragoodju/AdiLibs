@@ -1,8 +1,10 @@
-// components/BookModal.jsx
 import React from 'react';
-import Modal from './modal';
+import Modal from '../layout/Modal';
+import { useFavorites } from '../../context/FavoritesContext';
 
-const BookModal = ({ selectedBook, setSelectedBook, addToFavorites }) => {
+const BookModal = ({ selectedBook, setSelectedBook }) => {
+  const { addToFavorites } = useFavorites();
+
   return (
     <Modal onClose={() => setSelectedBook(null)}>
       <div className='flex flex-col md:flex-row gap-8'>

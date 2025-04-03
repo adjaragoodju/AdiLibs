@@ -1,4 +1,5 @@
-// components/book.jsx
+import React from 'react';
+
 const Book = ({ title, author, year, image }) => {
   return (
     <div className='min-w-[240px] flex-shrink-0'>

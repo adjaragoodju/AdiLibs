@@ -1,8 +1,5 @@
-// Add icons and colors to genre buttons - Complete implementation
-// Update src/components/GenresSection.jsx
-
 import React from 'react';
-import Book from './book';
+import Book from './Book';
 
 const GenresSection = ({
   genresRef,

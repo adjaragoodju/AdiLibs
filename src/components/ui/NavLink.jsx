@@ -1,5 +1,3 @@
-// Create a new file components/NavLink.jsx
-
 import React from 'react';
 
 const NavLink = ({ href, isActive, children }) => {

@@ -1,6 +1,5 @@
-// components/SearchResults.jsx
 import React from 'react';
-import Book from './book';
+import Book from '../books/Book';
 
 const SearchResults = ({
   searchQuery,

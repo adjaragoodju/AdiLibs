@@ -1,5 +1,4 @@
-// components/newsletter.jsx
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 const Newsletter = () => {
   const [email, setEmail] = useState('');

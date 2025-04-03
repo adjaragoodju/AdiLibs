@@ -1,4 +1,3 @@
-// components/AboutUsSection.jsx
 import React from 'react';
 
 const AboutUsSection = ({ aboutRef }) => {

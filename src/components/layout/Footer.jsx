@@ -1,6 +1,6 @@
 // components/Footer.jsx
 import React from 'react';
-import Logo from './logo';
+import Logo from '../ui/Logo';
 
 const Footer = ({
   uniqueGenres,

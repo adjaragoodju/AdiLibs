@@ -1,15 +1,15 @@
-// components/FavoritesModal.jsx
 import React from 'react';
-import Modal from './modal';
+import Modal from '../layout/Modal';
+import { useFavorites } from '../../context/FavoritesContext';
 
 const FavoritesModal = ({
-  favorites,
   setShowFavoritesModal,
   setSelectedBook,
-  removeFromFavorites,
   scrollToSection,
   genresRef,
 }) => {
+  const { favorites, removeFromFavorites } = useFavorites();
+
   return (
     <Modal onClose={() => setShowFavoritesModal(false)}>
       <div>

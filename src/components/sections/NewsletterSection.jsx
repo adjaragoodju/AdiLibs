@@ -1,6 +1,5 @@
-// components/NewsletterSection.jsx
 import React from 'react';
-import Newsletter from './newsletter';
+import Newsletter from '../ui/Newsletter';
 
 const NewsletterSection = ({ newsletterRef }) => {
   return (

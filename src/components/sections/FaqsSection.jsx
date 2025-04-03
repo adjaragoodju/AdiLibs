@@ -1,6 +1,3 @@
-// Implement collapsible FAQs
-// Update src/components/FaqsSection.jsx
-
 import React, { useState } from 'react';
 
 const FaqItem = ({ question, answer }) => {

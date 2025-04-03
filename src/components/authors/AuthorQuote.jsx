@@ -1,8 +1,5 @@
-// Update AuthorQuote.jsx to show book in modal instead of link
-// Modify src/components/AuthorQuote.jsx
-
 import React, { useState } from 'react';
-import Modal from './modal';
+import Modal from '../layout/Modal';
 
 const AuthorQuote = () => {
   const [showBookModal, setShowBookModal] = useState(false);

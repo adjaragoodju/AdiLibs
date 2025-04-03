@@ -1,14 +1,18 @@
-// components/reviewcard.jsx
-const ReviewCard = ({ name, avatar, rating, text, date }) => {
+import React from 'react';
+
+const ReviewCard = ({ name, avatar, rating, text, date, onClick }) => {
   return (
-    <div className='bg-gray-800 p-6 rounded-xl hover:scale-105 transition-transform'>
+    <div
+      className='bg-gray-800 p-6 rounded-xl hover:scale-105 transition-transform cursor-pointer'
+      onClick={onClick}
+    >
       <div className='flex items-center mb-4'>
         <img
-          src={avatar || '/placeholder-avatar.jpg'}
+          src={avatar || '/placeholder-avatar.jpg.avif'}
           alt={name}
           className='w-12 h-12 rounded-full object-cover mr-4'
           onError={(e) => {
-            e.target.src = '/placeholder-avatar.jpg'; // Fallback image
+            e.target.src = '/placeholder-avatar.jpg.avif'; // Fallback image
           }}
         />
         <div>
@@ -31,7 +35,25 @@ const ReviewCard = ({ name, avatar, rating, text, date }) => {
         ))}
       </div>
 
-      <p className='text-gray-300 line-clamp-4'>{text}</p>
+      <p className='text-gray-300 line-clamp-3'>{text}</p>
+
+      <div className='mt-4 text-sm text-gray-400 flex items-center'>
+        <svg
+          xmlns='http://www.w3.org/2000/svg'
+          className='h-4 w-4 mr-1'
+          fill='none'
+          viewBox='0 0 24 24'
+          stroke='currentColor'
+        >
+          <path
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            strokeWidth={2}
+            d='M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z'
+          />
+        </svg>
+        <span>Click to read full review</span>
+      </div>
     </div>
   );
 };
