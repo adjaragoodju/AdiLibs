@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Modal from '../layout/Modal';
+import { useFavorites } from '../../context/FavoritesContext';
 
 const AuthorQuote = () => {
   const [showBookModal, setShowBookModal] = useState(false);
+  const { favorites, addToFavorites, removeFromFavorites } = useFavorites();
 
   const bookData = {
     title: 'The Little Prince',
@@ -16,6 +18,20 @@ const AuthorQuote = () => {
     ratingCount: '5238',
     pages: '96',
     language: 'English',
+  };
+
+  // Проверяем, находится ли книга в избранном
+  const isBookInFavorites = favorites.some(
+    (book) => book.title === bookData.title && book.author === bookData.author
+  );
+
+  // Обработчик добавления/удаления из избранного
+  const handleFavoritesToggle = () => {
+    if (isBookInFavorites) {
+      removeFromFavorites(bookData);
+    } else {
+      addToFavorites(bookData);
+    }
   };
 
   return (
@@ -34,7 +50,7 @@ const AuthorQuote = () => {
       <div className='absolute inset-0 bg-black opacity-70 z-10' />
 
       {/* Content */}
-      <div className='container mx-auto px-4 py-24 relative z-20'>
+      <div className='container mx-auto px-6 py-24 relative z-20'>
         <div className='flex flex-col md:flex-row items-center justify-between gap-8'>
           <div className='md:w-1/2'>
             <div className='text-8xl text-white font-serif mb-4'>"</div>
@@ -136,11 +152,23 @@ const AuthorQuote = () => {
               </div>
 
               <div className='flex flex-wrap gap-4'>
-                <button className='bg-black hover:bg-gray-800 text-white px-6 py-3 rounded-lg transition-colors font-medium flex items-center'>
+                <button
+                  onClick={handleFavoritesToggle}
+                  className={`${
+                    isBookInFavorites
+                      ? 'bg-red-600 hover:bg-red-700'
+                      : 'bg-black hover:bg-gray-800'
+                  } text-white px-6 py-3 rounded-lg transition-colors font-medium flex items-center`}
+                  aria-label={
+                    isBookInFavorites
+                      ? 'Remove from favorites'
+                      : 'Add to favorites'
+                  }
+                >
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
                     className='h-5 w-5 mr-2'
-                    fill='none'
+                    fill={isBookInFavorites ? 'currentColor' : 'none'}
                     viewBox='0 0 24 24'
                     stroke='currentColor'
                   >
@@ -151,7 +179,9 @@ const AuthorQuote = () => {
                       d='M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z'
                     />
                   </svg>
-                  Add to Favorites
+                  {isBookInFavorites
+                    ? 'Remove from Favorites'
+                    : 'Add to Favorites'}
                 </button>
                 <button className='border border-black text-black hover:bg-gray-100 px-6 py-3 rounded-lg transition-colors font-medium flex items-center'>
                   <svg
@@ -168,7 +198,7 @@ const AuthorQuote = () => {
                       d='M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253'
                     />
                   </svg>
-                  Read Sample
+                  Read
                 </button>
               </div>
             </div>

@@ -3,7 +3,22 @@ import Modal from '../layout/Modal';
 import { useFavorites } from '../../context/FavoritesContext';
 
 const BookModal = ({ selectedBook, setSelectedBook }) => {
-  const { addToFavorites } = useFavorites();
+  const { favorites, addToFavorites, removeFromFavorites } = useFavorites();
+
+  // Проверяем, находится ли книга в избранном
+  const isInFavorites = favorites.some(
+    (book) =>
+      book.title === selectedBook.title && book.author === selectedBook.author
+  );
+
+  // Обработчик добавления/удаления из избранного
+  const handleFavoritesToggle = () => {
+    if (isInFavorites) {
+      removeFromFavorites(selectedBook);
+    } else {
+      addToFavorites(selectedBook);
+    }
+  };
 
   return (
     <Modal onClose={() => setSelectedBook(null)}>
@@ -85,16 +100,20 @@ const BookModal = ({ selectedBook, setSelectedBook }) => {
 
           <div className='flex flex-wrap gap-4'>
             <button
-              className='bg-black hover:bg-gray-800 text-white px-6 py-3 rounded-lg transition-colors font-medium flex items-center'
-              onClick={() => {
-                addToFavorites(selectedBook);
-                setSelectedBook(null);
-              }}
+              className={`${
+                isInFavorites
+                  ? 'bg-red-600 hover:bg-red-700'
+                  : 'bg-black hover:bg-gray-800'
+              } text-white px-6 py-3 rounded-lg transition-colors font-medium flex items-center`}
+              onClick={handleFavoritesToggle}
+              aria-label={
+                isInFavorites ? 'Remove from favorites' : 'Add to favorites'
+              }
             >
               <svg
                 xmlns='http://www.w3.org/2000/svg'
                 className='h-5 w-5 mr-2'
-                fill='none'
+                fill={isInFavorites ? 'currentColor' : 'none'}
                 viewBox='0 0 24 24'
                 stroke='currentColor'
               >
@@ -105,7 +124,7 @@ const BookModal = ({ selectedBook, setSelectedBook }) => {
                   d='M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z'
                 />
               </svg>
-              Add to Favorites
+              {isInFavorites ? 'Remove from Favorites' : 'Add to Favorites'}
             </button>
             <button className='border border-black text-black hover:bg-gray-100 px-6 py-3 rounded-lg transition-colors font-medium flex items-center'>
               <svg

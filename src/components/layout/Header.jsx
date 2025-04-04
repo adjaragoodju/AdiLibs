@@ -188,13 +188,13 @@ const Header = ({
             <input
               type='text'
               placeholder='Search books...'
-              className='px-4 py-2 border rounded-l-lg focus:outline-none  w-64'
+              className='px-4 py-2 border-2 rounded-l-lg focus:outline-none  w-64'
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
             <button
               type='submit'
-              className='bg-black hover:bg-gray-800 text-white px-6 py-2 rounded-r-lg transition-colors flex items-center'
+              className='bg-black hover:bg-gray-800  border-l-0 text-white px-6 py-2.5 h-full rounded-r-lg transition-colors flex items-center'
             >
               <svg
                 xmlns='http://www.w3.org/2000/svg'

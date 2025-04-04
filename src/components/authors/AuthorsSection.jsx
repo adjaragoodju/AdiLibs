@@ -11,6 +11,9 @@ const AuthorModal = ({ author, onClose, books, handleBookClick }) => {
             src={author.image}
             alt={author.name}
             className='w-full h-auto rounded-lg shadow-lg'
+            onError={(e) => {
+              e.target.src = '/writer.jpg'; // Fallback image
+            }}
           />
         </div>
         <div className='md:w-2/3'>
@@ -43,7 +46,9 @@ const AuthorModal = ({ author, onClose, books, handleBookClick }) => {
                   alt={book.title}
                   className='w-full h-48 object-cover rounded-lg shadow-md mb-2'
                 />
-                <h4 className='font-medium text-gray-900'>{book.title}</h4>
+                <h4 className='font-medium text-gray-900 line-clamp-2'>
+                  {book.title}
+                </h4>
                 <p className='text-sm text-gray-600'>{book.year}</p>
               </div>
             ))}
@@ -70,7 +75,7 @@ const AuthorsSection = ({
     <section
       id='authors'
       ref={authorsRef}
-      className='container mx-auto px-4 my-20'
+      className='container mx-auto px-6 my-20'
     >
       <div className='text-sm tracking-widest text-gray-700 uppercase mb-2'>
         AUTHORS
@@ -86,7 +91,7 @@ const AuthorsSection = ({
           >
             <AuthorCard
               name={author.name}
-              image={`/authors/${author.image}`}
+              image={author.image}
               genre={author.genre}
               description={author.description}
               onClick={() => handleAuthorClick(author)}

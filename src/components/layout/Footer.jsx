@@ -22,7 +22,7 @@ const Footer = ({
             </div>
             <div className='flex space-x-4'>
               <a
-                href='#'
+                href='https://www.facebook.com/'
                 className='text-white hover:text-gray-300 transition-colors'
                 aria-label='Facebook'
               >
@@ -36,7 +36,7 @@ const Footer = ({
                 </svg>
               </a>
               <a
-                href='#'
+                href='https://www.twitter.com/'
                 className='text-white hover:text-gray-300 transition-colors'
                 aria-label='Twitter'
               >
@@ -50,7 +50,7 @@ const Footer = ({
                 </svg>
               </a>
               <a
-                href='#'
+                href='https://www.instagram.com/'
                 className='text-white hover:text-gray-300 transition-colors'
                 aria-label='Instagram'
               >

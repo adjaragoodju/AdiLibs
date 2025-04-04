@@ -203,7 +203,7 @@ const GenresSection = ({
     <section
       id='genres'
       ref={genresRef}
-      className='container mx-auto px-4 my-20'
+      className='container mx-auto px-6 my-20'
     >
       <div className='text-sm tracking-widest text-gray-700 uppercase mb-2'>
         CATEGORIES
@@ -243,19 +243,31 @@ const GenresSection = ({
             <span className='mr-3'>{selectedGenre} Books</span>
             <div className='h-1 w-16 bg-black rounded'></div>
           </h3>
-          <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8'>
+
+          {/* Исправленная сетка для карточек книг */}
+          <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6'>
             {getBooksByFilter('genre', selectedGenre).map((book, index) => (
               <div
                 key={index}
                 onClick={() => handleBookClick(book)}
-                className='cursor-pointer bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-all hover:scale-105'
+                className='cursor-pointer bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 hover:scale-105 h-full flex flex-col'
               >
-                <Book
-                  title={book.title}
-                  author={book.author}
-                  year={book.year}
-                  image={book.image || '/placeholder-book.jpg'}
-                />
+                <div className='flex flex-col h-full overflow-hidden'>
+                  <div className='w-full h-48 mb-3 overflow-hidden flex items-center justify-center'>
+                    <img
+                      src={book.image || '/placeholder-book.jpg'}
+                      alt={book.title}
+                      className='object-cover w-full h-full'
+                    />
+                  </div>
+                  <div className='flex flex-col flex-grow'>
+                    <h4 className='font-medium text-lg leading-tight mb-1 line-clamp-2'>
+                      {book.title}
+                    </h4>
+                    <p className='text-sm text-gray-600 mb-1'>{book.author}</p>
+                    <p className='text-xs text-gray-500'>{book.year}</p>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
